@@ -1,0 +1,2 @@
+SLUG_WORD_SEPARATOR = '-'
+SOURCE_SUFFIX = '.md'
