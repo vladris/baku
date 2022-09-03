@@ -1,0 +1,14 @@
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic);
+
+body {
+  background-color: #f8fafb;
+  color: #222;
+  font-family: 'PT Sans', Arial, Helvetica, sans-serif;
+  font-size: 1.1em;
+  line-height: 1.4em;
+}
+
+.container {
+  max-width: 50%;
+  margin: 20px 25%;
+}

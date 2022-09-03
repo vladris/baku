@@ -13,7 +13,7 @@ def initialize():
     for f in ['post.html', 'index.html']:
         shutil.copy(utils.get_template(f), os.path.join('templates', f))
     
-    for f in ['style.css', 'icon.ico']:
+    for f in ['style.css', 'pygments.css', 'icon.ico']:
         shutil.copy(utils.get_template(f), os.path.join('static', f))
 
 
