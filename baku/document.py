@@ -37,3 +37,27 @@ def move(source, dest):
         raise Exception(f'Document {dest_file} already exists')
     shutil.move(source, dest)
     return dest_file
+
+
+def create_or_move_post(title, date):
+    path = utils.path_from_date(date)
+
+    # If file exists as draft, promote it to a post
+    if os.path.exists(title):
+        new_post = move(title, path)
+        print(f'Draft moved to post {new_post}')
+    # Otherwise create a new post
+    else:
+        new_post = create_document(title, path)
+        print(f'New post created as {new_post.path}')
+
+
+def create_or_move_draft(title):
+    # If file exists as post, move it to a draft
+    if os.path.exists(title):
+        new_draft = move(title, 'drafts')
+        print(f'File moved to draft {new_draft}')
+    # Otherwise create a new draft
+    else:
+        new_draft = create_draft(title)
+        print(f'New draft created as {new_draft.path}')

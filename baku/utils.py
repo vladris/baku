@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 import os
 import re
 from baku import consts
@@ -16,14 +16,14 @@ def name_from_title(title):
     return UNICODE_ALNUM_PTN.sub(word_sep, title).lower().strip(word_sep)
 
 
-def name_from_path(path):
-    return os.path.splitext(os.path.basename(path))[0]
-
-
 def ensure_path(path):
     if not os.path.exists(path):
         os.makedirs(path)
     return path
+
+
+def parse_date(str):
+    return datetime.strptime(str, '%Y/%m/%d')
 
 
 def split_date(date):
@@ -32,8 +32,3 @@ def split_date(date):
 
 def path_from_date(date):
     return ensure_path(os.path.join(*split_date(date)))
-
-
-def get_template(name):
-    package_path = os.path.abspath(os.path.dirname(__file__))
-    return os.path.join(package_path, 'templates', name)

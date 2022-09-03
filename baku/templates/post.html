@@ -3,19 +3,18 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width">
-<title>$$TITLE$$ &mdash; Blog</title>
+<title>{{ title }} &mdash; Blog</title>
 <link rel="stylesheet" href="../../../static/style.css" type="text/css">
 <link rel="stylesheet" href="../../../static/pygments.css" type="text/css">
 <link rel="shortcut icon" href="../../../static/icon.ico" />
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 </head>
 <body>
-<div class="container">
 <article>
-$$DATE$$
-$$BODY$$
+{{ date }}
+{{ body }}
 <article>
-$$PREV$$
-$$NEXT$$
-</div>
+{{ prev }}
+{{ next }}
+<div id="footer"><p>By {{ author }} | <a href="../../../index.html">Index</a></p></div>
 </body>

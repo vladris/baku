@@ -1,40 +1,7 @@
 import argparse
-import shutil
 import baku
-from baku import build, document, utils
+from baku import build, document, environment, utils
 from datetime import datetime
-import os
-
-
-def initialize():
-    utils.ensure_path('templates')
-    utils.ensure_path('static')
-
-    for f in ['post.html', 'index.html']:
-        shutil.copy(utils.get_template(f), os.path.join('templates', f))
-    
-    for f in ['style.css', 'pygments.css', 'icon.ico']:
-        shutil.copy(utils.get_template(f), os.path.join('static', f))
-
-
-def create_post(title, date):
-    path = utils.path_from_date(date)
-
-    if os.path.exists(title):
-        new_post = document.move(title, path)
-        print(f'Draft moved to post {new_post}')
-    else:
-        new_post = document.create_document(title, path)
-        print(f'New post created as {new_post.path}')
-
-
-def create_draft(title):
-    if os.path.exists(title):
-        new_draft = document.move(title, 'drafts')
-        print(f'File moved to draft {new_draft}')
-    else:
-        new_draft = document.create_draft(title)
-        print(f'New draft created as {new_draft.path}')
 
 
 def main(argv=None):
@@ -71,7 +38,7 @@ def main(argv=None):
             return -1
 
         try:
-            post_date = datetime.strptime(command.date[0], '%Y/%m/%d')
+            post_date = utils.parse_date(command.date[0])
         except Exception:
             print('Invalid post date: format should be YYYY/mm/dd')
             return -1
@@ -80,13 +47,20 @@ def main(argv=None):
 
 
     if command.init:
-        initialize()
-    elif command.build:
+        environment.initialize()
+        return 0
+
+    # All commands except initialize need to run from blog root
+    if not environment.is_blog():
+        print('Run baku from blog root or initialize a blog here using --init')
+        return -1
+
+    if command.build:
         build.build()
     elif command.post:
-        create_post(command.post[0], post_date)
+        document.create_or_move_post(command.post[0], post_date)
     elif command.draft:
-        create_draft(command.draft[0])
+        document.create_or_move_draft(command.draft[0])
     elif command.version:
         print(f'Baku version {baku.__version__} ')
     else:
