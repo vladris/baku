@@ -42,7 +42,7 @@ def render_post(post, template, md, config):
     context = {}
 
     context['date'] = datetime.strftime(post.date, '%B %d, %Y')
-    context['title'] = post.title
+    context['title'] = misaka.escape_html(post.title)
 
     # Link next post
     context['next'] = ''
