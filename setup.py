@@ -3,7 +3,7 @@ import baku
 
 long_desc = 'Baku is a simple, Markdown-based blogging engine/static website generator.'
 
-requires = ['Pygments>=2.13.0', 'misaka>=2.1.1', 'argparse>=1.4.0']
+requires = ['Pygments>=2.13.0', 'misaka>=2.1.1']
 
 setup(
     name = 'Baku',
