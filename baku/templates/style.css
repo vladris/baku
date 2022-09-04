@@ -53,12 +53,18 @@ body {
   background-color: #f8fafb;
   color: #222;
   font-family: 'PT Sans', Arial, Helvetica, sans-serif;
-  font-size: 1.1em;
+  font-size: 1em;
   line-height: 1.4em;
   margin: auto;
   max-width: 800px;
   padding: 20px;
   text-align: justify;
+}
+
+@media only screen and (min-width: 800px) {
+  body {
+      font-size: 1.1em;
+  }
 }
 
 code {
@@ -126,4 +132,31 @@ tr:nth-child(odd) {
 /* Math - override pygments.css */
 .mrow .mi, .mrow .mo {
   color: #222;
+}
+
+#index {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+#index .year {
+  font-size: 2em;
+  font-weight: bold;
+  grid-column: 1 / span 2;
+  margin-bottom: 2em;
+}
+
+#index .date {
+  font-size: 1.5em;
+  margin-bottom: 2em;
+  text-align: center;
+}
+
+#index .post {
+  font-size: 1.5em;
+  font-weight: bold;
+  grid-column: 2;
+  margin-bottom: 2em;
 }
