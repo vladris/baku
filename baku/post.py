@@ -49,17 +49,20 @@ def render_post(post, template, md, config):
     if post.next:
         href = os.path.join('../../..', post.next.rel_path)
         text = misaka.escape_html(post.next.title)
-        context['next'] = f'<div id="next"><a href={href}>{text}</a></div>'
+        context['next'] = f'<span><a href={href}>{text}</a> »</span>'
 
     # Link previous post
     context['prev'] = ''
     if post.prev:
         href = os.path.join('../../..', post.prev.rel_path)
         text = misaka.escape_html(post.prev.title)
-        context['prev'] = f'<div id="prev"><a href={href}>{text}</a></div>'
+        context['prev'] = f'<span>« <a href={href}>{text}</a></span>'
 
     context['body'] = md.process(post.text)
-    context['author'] = config['author']
+    
+    # Make all config properties available to the template
+    for key in config:
+        context[key] = config[key]
 
     utils.ensure_path(post.dest_dir)
     open(post.dest, 'w+').write(template.render(context))

@@ -4,17 +4,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width">
 <title>{{ title }} &mdash; Blog</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="../../../static/style.css" type="text/css">
 <link rel="stylesheet" href="../../../static/pygments.css" type="text/css">
 <link rel="shortcut icon" href="../../../static/icon.ico" />
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 </head>
 <body>
+<div id="timestamp"><span>{{ date }}</span></div>
 <article>
-{{ date }}
 {{ body }}
-<article>
-{{ prev }}
-{{ next }}
-<div id="footer"><p>By {{ author }} | <a href="../../../index.html">Index</a></p></div>
+</article>
+<div id="nav">
+<div id="prev">{{prev}}</div>
+<div id="next">{{next}}</div>
+</div>
+<div id="footer"><span>By {{ author }} | <a href="../../../index.html">Index</a></span></div>
 </body>
