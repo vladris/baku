@@ -23,6 +23,10 @@ def collect_files():
             os.path.join('.', 'templates')]:
             continue
 
+        # Ignore dot directories
+        if root.startswith(os.path.join('.', '.')):
+            continue
+
         for f in files:
             if os.path.splitext(f)[1] == '.md':
                 posts.append(post.Post(os.path.join(root, f)))
