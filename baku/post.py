@@ -1,6 +1,6 @@
 from baku import utils
 from datetime import datetime
-import misaka
+import html
 import os
 
 
@@ -24,7 +24,7 @@ class Post:
 
         # Title and content
         self.text = open(doc, 'r').read()
-        self.title = self.text.split('\n', 1)[0].strip('# ')
+        self.title = html.unescape(self.text.split('\n', 1)[0].strip('# '))
 
         # Previous and next links
         self.prev, self.next = None, None
@@ -42,20 +42,20 @@ def render_post(post, template, md, config):
     context = {}
 
     context['date'] = datetime.strftime(post.date, '%B %d, %Y')
-    context['title'] = misaka.escape_html(post.title)
+    context['title'] = html.escape(post.title)
 
     # Link next post
     context['next'] = ''
     if post.next:
         href = os.path.join('../../..', post.next.rel_path)
-        text = misaka.escape_html(post.next.title)
+        text = html.escape(post.next.title)
         context['next'] = f'<span><a href={href}>{text}</a> »</span>'
 
     # Link previous post
     context['prev'] = ''
     if post.prev:
         href = os.path.join('../../..', post.prev.rel_path)
-        text = misaka.escape_html(post.prev.title)
+        text = html.escape(post.prev.title)
         context['prev'] = f'<span>« <a href={href}>{text}</a></span>'
 
     context['body'] = md.process(post.text)

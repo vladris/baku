@@ -72,6 +72,11 @@ body {
   text-align: justify;
 }
 
+h1 {
+  line-height: 1.2em;
+  text-align: left;
+}
+
 @media only screen and (min-width: 800px) {
   body {
       font-size: 1.1em;
@@ -100,11 +105,16 @@ ul {
   padding-left: 20px;
 }
 
+ol {
+  padding-left: 20px;
+}
+
 img {
   display: block;
   margin-left: auto;
   margin-right: auto;
   overflow: scroll;
+  max-width: 100%;
 }
 
 hr {
