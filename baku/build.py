@@ -1,4 +1,4 @@
-from baku import consts, index, environment, markdown, post, templating, utils
+from baku import consts, index, environment, markdown, post, rss, templating, utils
 import os
 import shutil
 
@@ -75,6 +75,12 @@ def copy_assets(assets):
     print('✅')
 
 
+def build_rss_feed(posts, config):
+    print('Building RSS feed...', end=' ')
+    rss.build_feed(posts, config)
+    print('✅')
+
+
 def build():
     clean_dest()
     posts, assets = collect_files()
@@ -82,3 +88,4 @@ def build():
     render_posts(posts, config)
     build_index(posts, config)
     copy_assets(assets)
+    build_rss_feed(posts, config)

@@ -9,7 +9,8 @@ class Post:
         
         # Timestamp
         _, self.year, self.month, self.day, _ = doc.split(os.path.sep)
-        self.date = utils.parse_date(f'{self.year}/{self.month}/{self.day}')
+        self.date = utils.parse_date(
+            f'{self.year}/{self.month}/{self.day}').astimezone()
         
         # Destination directory and file
         d, f = os.path.split(doc)
@@ -22,8 +23,9 @@ class Post:
         self.text = open(doc, 'r').read()
 
         # Relative path and link
-        self.rel_path = os.path.splitext(doc)[0] + '.html'
-        self.href = os.path.join('..', '..', '..', self.rel_path)
+        self.rel_path = (os.path.splitext(doc)[0] + '.html').replace(
+            os.path.pathsep, '/')
+        self.href = '../../../' + self.rel_path
 
         self.title = html.unescape(self.text.split('\n', 1)[0].strip(' #'))
 

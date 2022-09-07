@@ -15,8 +15,10 @@ def init_folder(package_path, folder, files):
 def initialize():
     package_path = os.path.abspath(os.path.dirname(__file__))
 
-    init_folder(package_path, 'templates', [consts.POST_TEMAPLTE, consts.ROOT_TEMPLATE])
-    init_folder(package_path, 'static', ['style.css', 'pygments.css', 'icon.ico'])
+    init_folder(package_path, 'templates',
+        [consts.POST_TEMAPLTE, consts.ROOT_TEMPLATE, consts.RSS_TEMPLATE])
+    init_folder(package_path, 'static',
+        ['style.css', 'pygments.css', 'icon.ico'])
     init_folder(package_path, '.', [consts.CONFIG])
 
     print('All set! Don\'t forget to update blog.conf.')

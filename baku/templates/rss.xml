@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel>
+    <title>{{ title & }}</title>
+    <link>{{ url }}</link>
+    <description>{{ description & }}</description>
+    <language>en-us</language>
+
+{{ for posts }}
+    <item>
+      <link>{{ $item.url }}</link>
+      <guid>{{ $item.url }}</guid>
+      <title><![CDATA[{{ $item.title }}]]></title>
+      <description><![CDATA[{{ $item.body }}]]></description>
+      <pubDate>{{ $item.date ~ %a, %d %b %Y %H:%M:%S %z}}</pubDate>
+    </item>
+{{ endfor }}
+  </channel>
+</rss>
