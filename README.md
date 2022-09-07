@@ -80,19 +80,43 @@ baku --draft 2022/09/01/this-is-my-first-post.md
 
 This will move the post from `2022/09/01` to the `drafts` folder.
 
-## Templates
+## Directory layout
 
 When you initialize a new blog, Baku will create a couple of directories:
 `templates` and `static`.
-
-The `templates` directory contains the HTML templates used for building posts
-and `index.html`. Currently Baku is not using a templating engine, rather
-simply attempts to replace variables between `{{` and `}}` with actual values.
-Values available during build are `prev` (previous post link), `next`
-(next post link), `body` (generated from Markdown), `title` (first line of the document, minus the leading `#`), and all values set in `blog.cfg`.
 
 The `static` directory contains a default icon for the website and a couple of
 CSS files. The content of this directory is copied to the build directory.
 
 In fact, all files that are not `.md` files and that are not under root,
 `templates` or `drafts` are copied to the build directory.
+
+The build directory is `html` and it gets cleaned up with each build.
+
+## Templates
+
+The `templates` directory contains the HTML templates used for building posts
+and `index.html`. Baku uses a custom, simple templating engine to avoid
+dependencies. Variables between `{{` and `}}` are evaluated as follows:
+
+* `{{ if <expr> }}` is a conditional expression which needs a matching
+  `{{ endif }}`. During template rendering, Baku will evaluate `<expr>`. If
+  the result is truthy, the text and expressions until `{{ endif }}` will
+  be evaluated, otherwise they will be skipped.
+
+* `{{ for <expr> }}` is a loop expression which needs a matching
+  `{{ endfor }}`. During template rendering, Baku will iterate over the
+  result of evaluating `<expr>` and will repeatedly evaluate the text and
+  expressions until `{{ endfor }}` for each item in the result. A `$item`
+  representing the result item will be available in the context.
+
+* All other expressions are evaluated as references to values in the context
+  (e.g. `{{ a.b.c }}`). A `&` after an expression HTML-escapes the value
+  (e.g. `{{ a.b.c & }}` will HTML-escape `a.b.c`). A `%` followed by a format
+  string will apply date formatting to the value using `strftime()` (e.g.
+  `{{ a.b.c & %B %d %Y }}`).
+
+The context used during post rendering includes all values in `blog.cfg`. When
+rendering posts, the context includes a `post` variable with various post data.
+When rendering the index, the context includes `years`, each year containing a
+`year` value and a list of posts (`posts`).

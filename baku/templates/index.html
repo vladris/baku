@@ -7,9 +7,16 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="./static/style.css" type="text/css">
 <link rel="shortcut icon" href="./static/icon.ico" />
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 </head>
 <body>
-{{ body }}
+<div id="index">
+{{ for years }}
+<div class="year"><span>{{ $item.year }}</span></div>
+{{ for $item.posts }}
+<div class="date"><span>{{ $item.date ~ %b %d }}<span></div>
+<div class="post"><span><a href="{{ $item.rel_path }}">{{ $item.title & }}</a></span></div>
+{{ endfor }}
+{{ endfor }}
+</div>
 </body>
 </html>

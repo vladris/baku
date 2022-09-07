@@ -43,12 +43,11 @@ def get_dest(source):
         '.', 'html', os.path.split(source[2:])[0])
 
 
-def render_posts(posts):
+def render_posts(posts, config):
     print('Rendering posts...', end=' ')
-    template = templating.Template(
+    template = templating.VerySimpleTemplate(
         os.path.join('templates', consts.POST_TEMAPLTE))
     md = markdown.Markdown()
-    config = environment.load_config()
 
     for i, p in enumerate(posts):
         if i > 0:
@@ -61,9 +60,9 @@ def render_posts(posts):
     print('✅')
 
     
-def build_index(posts):
+def build_index(posts, config):
     print('Generating index.html...', end=' ')
-    index.build_index(posts)
+    index.build_index(posts, config)
     print('✅')
 
 
@@ -79,6 +78,7 @@ def copy_assets(assets):
 def build():
     clean_dest()
     posts, assets = collect_files()
-    render_posts(posts)
-    build_index(posts)
+    config = environment.load_config()
+    render_posts(posts, config)
+    build_index(posts, config)
     copy_assets(assets)

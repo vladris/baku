@@ -1,29 +1,22 @@
 from baku import consts, templating
-from datetime import datetime
-import misaka
 import os
 
-def build_index(posts):
-    template = templating.Template(
+def build_index(posts, config):
+    template = templating.VerySimpleTemplate(
         os.path.join('templates', consts.ROOT_TEMPLATE))
 
-    html = '<div id="index">'
-    year = ''
+    # Group posts by year
+    year, context, posts_in_year = posts[0].year, {'years': []}, []
     for post in posts:
-        if post.year != year:
-            html += f'<div class="year"><span>{post.year}</span></div>'
-            year = post.year
-
-        month = datetime.strftime(post.date, '%b')
-
-        html += f'<div class="date"><span>{month} {post.day}</span></div>' + \
-            f'<div class="post"><span><a href="{post.rel_path}">' + \
-            f'{misaka.escape_html(post.title)}</a></span></div>\n'
-
-    html += '</div>'
-
-    context = {'body': html}
+        if post.year == year:
+            posts_in_year.append(post)
+        else:
+            context['years'].append({
+                'year': year,
+                'posts': posts_in_year
+            })
+            year, posts_in_year = post.year, [post]
 
     open(
         os.path.join('.', 'html', 'index.html'),
-        'w+').write(template.render(context))
+        'w+').write(template.render(context | config))
