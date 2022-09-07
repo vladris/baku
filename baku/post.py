@@ -25,7 +25,7 @@ class Post:
         # Relative path and link
         self.rel_path = (os.path.splitext(doc)[0] + '.html').replace(
             os.path.pathsep, '/')
-        self.href = '../../../' + self.rel_path
+        self.href = '../../../' + self.rel_path[2:]
 
         self.title = html.unescape(self.text.split('\n', 1)[0].strip(' #'))
 
