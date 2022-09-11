@@ -32,6 +32,7 @@ def create_draft(title):
 
 
 def move(source, dest):
+    utils.ensure_path(dest)
     dest_file = os.path.join(dest, os.path.split(source)[-1])
     if os.path.exists(dest_file):
         raise Exception(f'Document {dest_file} already exists')

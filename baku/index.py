@@ -1,6 +1,7 @@
 from baku import consts, templating
 import os
 
+
 def build_index(posts, config):
     template = templating.VerySimpleTemplate(
         os.path.join('templates', consts.ROOT_TEMPLATE))
