@@ -20,7 +20,8 @@ class Post:
             os.path.splitext(f)[0] + '.html')
 
         # Load content
-        self.text = open(doc, 'r').read()
+        with open(doc, 'r') as f:
+            self.text = f.read()
 
         # Relative path and link
         self.rel_path = (os.path.splitext(doc)[0] + '.html').replace(
