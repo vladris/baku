@@ -5,7 +5,8 @@ from types import SimpleNamespace as sn
 
 class VerySimpleTemplate:
     def __init__(self, file):
-        text = open(file, 'r').read()
+        with open(file, 'r') as f:
+            text = f.read()
         self.template, _ = self.__parse(text)
     
 

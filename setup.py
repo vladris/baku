@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 import baku
 
 long_desc = 'Baku is a simple, Markdown-based blogging engine/static website generator.'
@@ -27,6 +27,7 @@ setup(
         'Topic :: Internet'
     ],
     platforms = 'any',
+    packages=find_packages('baku', exclude=['test']),
     include_package_data = True,
     package_data={'baku': ['templates/*']},
     entry_points = {

@@ -30,12 +30,13 @@ def is_blog():
 
 def load_config():
     config = {}
-    for line in open(consts.CONFIG, 'r').readlines():
-        line = line.strip()
-        if not line:
-            continue
+    with open(consts.CONFIG, 'r') as f:
+        for line in f.readlines():
+            line = line.strip()
+            if not line:
+                continue
 
-        key, value = line.split('=', 1)
-        config[key.strip()] = value.strip()
+            key, value = line.split('=', 1)
+            config[key.strip()] = value.strip()
 
     return config
