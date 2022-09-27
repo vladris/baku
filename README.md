@@ -1,5 +1,7 @@
 # Baku
 
+![CI status](https://github.com/vladris/baku/actions/workflows/ci.yml/badge.svg)
+
 ![Baku](baku.png)
 
 Baku is a simple, Markdown-based blogging engine/static website generator. Baku is the spiritual successor to [Tinkerer](https://github.com/vladris/tinkerer).
