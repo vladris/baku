@@ -1,6 +1,6 @@
-from baku import consts, templating
 import os
 import pyquery
+from baku import consts, templating, utils
 
 
 def build_feed(posts, config):
@@ -13,9 +13,8 @@ def build_feed(posts, config):
         post.url = base_url + '/' + post.rel_path[2:]
         post.body = patch_links(base_url, post)
 
-    open(
-        os.path.join('.', 'html', 'rss.xml'),
-        'w+').write(template.render({'posts': posts} | config))
+    with utils.open_utf8(os.path.join('.', 'html', 'rss.xml'), 'w+') as f:
+        f.write(template.render({'posts': posts} | config))
 
 
 def patch_links(base_url, post):

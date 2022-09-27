@@ -1,0 +1,3 @@
+[default]
+disable=missing-docstring
+good-names=d,f,i,md,n,p

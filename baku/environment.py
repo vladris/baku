@@ -1,7 +1,6 @@
-from struct import pack
-from baku import consts, utils
 import os
 import shutil
+from baku import consts, utils
 
 
 def init_folder(package_path, folder, files):
@@ -30,7 +29,7 @@ def is_blog():
 
 def load_config():
     config = {}
-    with open(consts.CONFIG, 'r') as f:
+    with utils.open_utf8(consts.CONFIG, 'r') as f:
         for line in f.readlines():
             line = line.strip()
             if not line:

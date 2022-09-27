@@ -22,13 +22,17 @@ def ensure_path(path):
     return path
 
 
-def parse_date(str):
-    return datetime.strptime(str, '%Y/%m/%d')
+def parse_date(str_date):
+    return datetime.strptime(str_date, '%Y/%m/%d')
 
 
 def split_date(date):
-    return '%04d' % date.year, '%02d' % date.month, '%02d' % date.day
+    return f'{date.year:04}', f'{date.month:02}', f'{date.day:02}'
 
 
 def path_from_date(date):
     return ensure_path(os.path.join(*split_date(date)))
+
+
+def open_utf8(file, mode):
+    return open(file, mode, encoding='utf8')

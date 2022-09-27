@@ -1,6 +1,6 @@
-from baku import consts, index, environment, markdown, post, rss, templating, utils
 import os
 import shutil
+from baku import consts, index, environment, markdown, post, rss, templating, utils
 
 
 def clean_dest():
@@ -59,7 +59,7 @@ def render_posts(posts, config):
 
     print('✅')
 
-    
+
 def build_index(posts, config):
     print('Generating index.html...', end=' ')
     index.build_index(posts, config)

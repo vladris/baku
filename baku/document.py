@@ -14,7 +14,7 @@ class Document():
 
 
     def write(self):
-        with open(self.path, "w+") as f:
+        with utils.open_utf8(self.path, "w+") as f:
             f.write(f'# {self.title}\n\n')
 
 

@@ -1,5 +1,5 @@
-from baku import consts, templating
 import os
+from baku import consts, templating, utils
 
 
 def build_index(posts, config):
@@ -18,6 +18,5 @@ def build_index(posts, config):
             })
             year, posts_in_year = post.year, [post]
 
-    open(
-        os.path.join('.', 'html', 'index.html'),
-        'w+').write(template.render(context | config))
+    with utils.open_utf8(os.path.join('.', 'html', 'index.html'), 'w+') as f:
+        f.write(template.render(context | config))

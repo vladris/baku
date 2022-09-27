@@ -1,7 +1,7 @@
 import argparse
+from datetime import datetime
 import baku
 from baku import build, document, environment, utils
-from datetime import datetime
 
 
 def main(argv=None):

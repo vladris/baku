@@ -1,24 +1,25 @@
 from datetime import datetime
 import html
 from types import SimpleNamespace as sn
+from baku import utils
 
 
 class VerySimpleTemplate:
     def __init__(self, file):
-        with open(file, 'r') as f:
+        with utils.open_utf8(file, 'r') as f:
             text = f.read()
         self.template, _ = self.__parse(text)
-    
+
 
     def render(self, context):
         return self.__walk(self.template, context)
-    
+
 
     def __parse(self, text, pos=0, stop=None):
         nodes, p = [], pos
         while True:
             # Parse raw text
-            n, p = self.__parseText(text, p)
+            n, p = self.__parse_text(text, p)
             if n.value:
                 nodes.append(n)
 
@@ -26,7 +27,7 @@ class VerySimpleTemplate:
                 break
 
             # Parse an expression
-            n, p = self.__parseExpr(text, p)
+            n, p = self.__parse_expr(text, p)
             if n.expr == stop:
                 break
 
@@ -36,29 +37,29 @@ class VerySimpleTemplate:
         return sn(type='list', children=nodes), p
 
 
-    def __parseText(self, text, pos):
+    def __parse_text(self, text, pos):
         # Text ends when '{{' is encountered (or end of string)
         p = text.find('{{', pos)
         value = text[pos:p] if p != -1 else text[pos:]
-        
+
         # Return a text node
         return sn(type='text', value=value), p
 
 
-    def __parseExpr(self, text, pos):
+    def __parse_expr(self, text, pos):
         # Expression ends when '}}' is encountered
         p = text.find('}}', pos) + 2
         expr = text[pos + 2:p - 2].strip()
         if expr.startswith('if '):
             # Parse list until an endif expression
             branch, p = self.__parse(text, p, 'endif')
-            
+
             # Return an if node
             return sn(type='if', expr=expr[3:].strip(), branch=branch), p
         elif expr.startswith('for '):
             # Parse list until an endfor expression
             loop, p = self.__parse(text, p, 'endfor')
-            
+
             # Return a for node
             return sn(type='for', expr=expr[4:].strip(), loop=loop), p
         else:
@@ -69,7 +70,7 @@ class VerySimpleTemplate:
     def __get(self, expr, context):
         # If context is a dictionary, treat expr as key, else as an attribute
         return context[expr] if isinstance(context, dict) \
-            else context.__getattribute__(expr)
+            else getattr(context, expr)
 
 
     def __eval(self, expr, context):
