@@ -42,7 +42,7 @@ class Post:
 
 
     def process_markdown(self, md):
-        self.body = md.process(self.text)
+        self.body = md(self.text)
 
 
 def render_post(post, template, md, config):

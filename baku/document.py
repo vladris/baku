@@ -1,7 +1,9 @@
+from dataclasses import dataclass
 import os
 import shutil
 from baku import consts, utils
 
+@dataclass
 class Document():
     def __init__(self, title, path):
         self.title = title
@@ -13,17 +15,14 @@ class Document():
             self.name) + consts.SOURCE_SUFFIX
 
 
-    def write(self):
-        with utils.open_utf8(self.path, "w+") as f:
-            f.write(f'# {self.title}\n\n')
-
-
 def create_document(title, path):
     doc = Document(title, path)
     if os.path.exists(doc.path):
         raise Exception(f'Document {title} already exists at {doc.path}')
 
-    doc.write()
+    with utils.open_utf8(doc.path, "w+") as f:
+        f.write(f'# {doc.title}\n\n')
+
     return doc
 
 

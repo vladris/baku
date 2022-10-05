@@ -7,6 +7,8 @@ from pygments.lexers import get_lexer_by_name
 
 # Syntax highlighting
 class HighlighterRenderer(m.HtmlRenderer):
+    # pylint: disable=too-few-public-methods
+    # This is what Misaka wants to enable Pygments
     def blockcode(self, text, lang):
         try:
             lexer = get_lexer_by_name(lang, stripall=True)
@@ -17,21 +19,15 @@ class HighlighterRenderer(m.HtmlRenderer):
             formatter = HtmlFormatter()
             return highlight(text, lexer, formatter)
 
-        return '\n<pre><code>{}</code></pre>\n'.format(
-                            m.escape_html(text.strip()))
+        return f'\n<pre><code>{m.escape_html(text.strip())}</code></pre>\n'
 
 
-class Markdown:
-    def __init__(self):
-        self.md = m.Markdown(HighlighterRenderer(),
-            extensions=(
-                'fenced-code',
-                'footnotes',
-                'math',
-                'math-explicit',
-                'quote',
-                'tables'))
-
-
-    def process(self, text):
-        return self.md(text)
+def make_markdown_processor():
+    return m.Markdown(HighlighterRenderer(),
+        extensions=(
+            'fenced-code',
+            'footnotes',
+            'math',
+            'math-explicit',
+            'quote',
+            'tables'))

@@ -73,7 +73,7 @@ class TestPost(unittest.TestCase):
         p = post.Post(
             self.make_post('2022', '09', '01', 'post.md', '# Test post'))
 
-        p.process_markdown(markdown.Markdown())
+        p.process_markdown(markdown.make_markdown_processor())
 
         self.assertEqual(p.body, '<h1>Test post</h1>\n')
 

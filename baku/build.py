@@ -47,7 +47,7 @@ def render_posts(posts, config):
     print('Rendering posts...', end=' ')
     template = templating.VerySimpleTemplate(
         os.path.join('templates', consts.POST_TEMAPLTE))
-    md = markdown.Markdown()
+    md = markdown.make_markdown_processor()
 
     for i, p in enumerate(posts):
         if i > 0:

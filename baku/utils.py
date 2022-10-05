@@ -8,10 +8,7 @@ UNICODE_ALNUM_PTN = re.compile(r'[\W_]+', re.U)
 
 
 def name_from_title(title):
-    try:
-        word_sep = consts.SLUG_WORD_SEPARATOR
-    except Exception:
-        word_sep = '_'
+    word_sep = consts.SLUG_WORD_SEPARATOR
 
     return UNICODE_ALNUM_PTN.sub(word_sep, title).lower().strip(word_sep)
 

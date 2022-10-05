@@ -26,13 +26,6 @@ class TestDocument(unittest.TestCase):
 
         self.assertFalse(os.path.exists(doc.path))
 
-        doc.write()
-
-        self.assertTrue(os.path.exists(doc.path))
-
-        with open(doc.path, 'r') as f:
-            self.assertEqual(f.read(), '# Test post\n\n')
-
 
     def test_create_document(self):
         doc = document.Document('Test post', 'doc')
@@ -41,6 +34,9 @@ class TestDocument(unittest.TestCase):
         document.create_document('Test post', 'doc')
 
         self.assertTrue(os.path.exists(doc.path))
+
+        with open(doc.path, 'r', encoding='utf8') as f:
+            self.assertEqual(f.read(), '# Test post\n\n')
 
 
     def test_create_draft(self):
@@ -85,7 +81,7 @@ class TestDocument(unittest.TestCase):
             os.path.join('doc', 'test-post.md')))
 
         self.assertRaises(Exception, lambda:
-            document.move(os.path.join('drafts', 'test-post.md', 'doc')))
+            document.move(os.path.join('drafts', 'test-post.md'), 'doc'))
 
 
     def test_create_or_move_post_create(self):

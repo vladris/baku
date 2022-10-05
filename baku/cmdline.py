@@ -39,7 +39,7 @@ def main(argv=None):
 
         try:
             post_date = utils.parse_date(command.date[0])
-        except Exception:
+        except ValueError:
             print('Invalid post date: format should be YYYY/mm/dd')
             return -1
     else:

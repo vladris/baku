@@ -56,15 +56,16 @@ class VerySimpleTemplate:
 
             # Return an if node
             return sn(type='if', expr=expr[3:].strip(), branch=branch), p
-        elif expr.startswith('for '):
+
+        if expr.startswith('for '):
             # Parse list until an endfor expression
             loop, p = self.__parse(text, p, 'endfor')
 
             # Return a for node
             return sn(type='for', expr=expr[4:].strip(), loop=loop), p
-        else:
-            # Return an expression node
-            return sn(type='expr', expr=expr), p
+
+        # Return an expression node
+        return sn(type='expr', expr=expr), p
 
 
     def __get(self, expr, context):
@@ -103,10 +104,8 @@ class VerySimpleTemplate:
             case 'list':
                 return ''.join([self.__walk(n, context) for n in node.children])
             case 'if':
-                if self.__eval(node.expr, context):
-                    return self.__walk(node.branch, context)
-                else:
-                    return ''
+                return self.__walk(node.branch, context) if \
+                    self.__eval(node.expr, context) else ''
             case 'for':
                 return ''.join([self.__walk(node.loop, context | {'$item':
                     item}) for item in self.__eval(node.expr, context)])
