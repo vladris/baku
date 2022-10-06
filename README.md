@@ -22,7 +22,7 @@ cd blog
 baku --init
 ```
 
-Update the newly generated `blog.cfg` file to add your name as the author.
+Update the newly generated `blog.cfg` file to configure your blog.
 
 ## Posting
 
