@@ -1,3 +1,4 @@
+from typing import Callable
 import misaka as m
 from pygments import highlight
 from pygments.formatters import ClassNotFound
@@ -22,7 +23,7 @@ class HighlighterRenderer(m.HtmlRenderer):
         return f'\n<pre><code>{m.escape_html(text.strip())}</code></pre>\n'
 
 
-def make_markdown_processor():
+def make_markdown_processor() -> Callable[[str], str]:
     return m.Markdown(HighlighterRenderer(),
         extensions=(
             'fenced-code',

@@ -1,9 +1,10 @@
 import os
 import shutil
+from typing import Dict, List
 from baku import consts, index, environment, markdown, post, rss, templating, utils
 
 
-def clean_dest():
+def clean_dest() -> None:
     print('Cleaning up destination', end=' ')
     if os.path.exists('html'):
         shutil.rmtree('html')
@@ -11,7 +12,7 @@ def clean_dest():
     print('✅')
 
 
-def collect_files():
+def collect_files() -> List[post.Post]:
     print('Collecting files', end=' ')
     posts, assets = [], []
     for root, _, files in os.walk('.'):
@@ -38,12 +39,12 @@ def collect_files():
         sorted(assets, reverse=True)
 
 
-def get_dest(source):
+def get_dest(source: str) -> str:
     return os.path.join(
         '.', 'html', os.path.split(source[2:])[0])
 
 
-def render_posts(posts, config):
+def render_posts(posts: List[post.Post], config: Dict[str, str]) -> None:
     print('Rendering posts...', end=' ')
     template = templating.VerySimpleTemplate(
         os.path.join('templates', consts.POST_TEMAPLTE))
@@ -60,13 +61,13 @@ def render_posts(posts, config):
     print('✅')
 
 
-def build_index(posts, config):
+def build_index(posts: List[post.Post], config: Dict[str, str]) -> None:
     print('Generating index.html...', end=' ')
     index.build_index(posts, config)
     print('✅')
 
 
-def copy_assets(assets):
+def copy_assets(assets: List[str]) -> None:
     print('Copying assets...', end=' ')
     for asset in assets:
         dest = get_dest(asset)
@@ -75,13 +76,13 @@ def copy_assets(assets):
     print('✅')
 
 
-def build_rss_feed(posts, config):
+def build_rss_feed(posts: List[post.Post], config: Dict[str, str]) -> None:
     print('Building RSS feed...', end=' ')
     rss.build_feed(posts, config)
     print('✅')
 
 
-def build():
+def build() -> None:
     clean_dest()
     posts, assets = collect_files()
     config = environment.load_config()

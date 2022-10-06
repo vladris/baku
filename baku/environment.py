@@ -1,9 +1,10 @@
 import os
 import shutil
+from typing import Dict, List
 from baku import consts, utils
 
 
-def init_folder(package_path, folder, files):
+def init_folder(package_path: str, folder: str, files: List[str]) -> None:
     utils.ensure_path(folder)
     for f in files:
         shutil.copy(
@@ -11,7 +12,7 @@ def init_folder(package_path, folder, files):
             folder)
 
 
-def initialize():
+def initialize() -> None:
     package_path = os.path.abspath(os.path.dirname(__file__))
 
     init_folder(package_path, 'templates',
@@ -23,11 +24,11 @@ def initialize():
     print('All set! Don\'t forget to update blog.conf.')
 
 
-def is_blog():
+def is_blog() -> bool:
     return os.path.exists(consts.CONFIG)
 
 
-def load_config():
+def load_config() -> Dict[str, str]:
     config = {}
     with utils.open_utf8(consts.CONFIG, 'r') as f:
         for line in f.readlines():

@@ -1,10 +1,12 @@
 import html
 import os
+from typing import Callable, Dict
 from baku import utils
+from baku.templating import VerySimpleTemplate
 
 
 class Post:
-    def __init__(self, doc):
+    def __init__(self, doc: str):
         self.doc = doc
 
         # Timestamp
@@ -33,19 +35,20 @@ class Post:
         self.prev, self.next, self.body = None, None, None
 
 
-    def link_prev(self, prev_post):
+    def link_prev(self, prev_post: 'Post') -> None:
         self.prev = prev_post
 
 
-    def link_next(self, next_post):
+    def link_next(self, next_post: 'Post') -> None:
         self.next = next_post
 
 
-    def process_markdown(self, md):
+    def process_markdown(self, md: Callable[[str], str]) -> None:
         self.body = md(self.text)
 
 
-def render_post(post, template, md, config):
+def render_post(post: Post, template: VerySimpleTemplate,
+    md: Callable[[str], str], config: Dict[str, str]) -> None:
     post.process_markdown(md)
 
     utils.ensure_path(post.dest_dir)

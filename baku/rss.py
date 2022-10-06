@@ -1,25 +1,26 @@
 import os
+from typing import Dict, List
 import pyquery
-from baku import consts, templating, utils
+from baku import consts, post, templating, utils
 
 
-def build_feed(posts, config):
+def build_feed(posts: List[post.Post], config: Dict[str, str]) -> None:
     template = templating.VerySimpleTemplate(
         os.path.join('templates', consts.RSS_TEMPLATE))
 
     base_url = config['url'].strip('/')
 
-    for post in posts:
-        post.url = base_url + '/' + post.rel_path[2:]
-        post.body = patch_links(base_url, post)
+    for p in posts:
+        p.url = base_url + '/' + p.rel_path[2:]
+        p.body = patch_links(base_url, p)
 
     with utils.open_utf8(os.path.join('.', 'html', 'rss.xml'), 'w+') as f:
         f.write(template.render({'posts': posts} | config))
 
 
-def patch_links(base_url, post):
-    doc = pyquery.PyQuery(post.body)
-    abs_path = f'{base_url}/{post.year}/{post.month}/{post.day}/'
+def patch_links(base_url: str, p: post.Post) -> str:
+    doc = pyquery.PyQuery(p.body)
+    abs_path = f'{base_url}/{p.year}/{p.month}/{p.day}/'
 
     # Patch img nodes
     for img in doc.find('img'):

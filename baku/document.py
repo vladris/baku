@@ -1,11 +1,12 @@
 from dataclasses import dataclass
+from datetime import datetime
 import os
 import shutil
 from baku import consts, utils
 
 @dataclass
 class Document():
-    def __init__(self, title, path):
+    def __init__(self, title: str, path: str):
         self.title = title
         self.name = utils.name_from_title(title)
 
@@ -15,7 +16,7 @@ class Document():
             self.name) + consts.SOURCE_SUFFIX
 
 
-def create_document(title, path):
+def create_document(title: str, path: str) -> Document:
     doc = Document(title, path)
     if os.path.exists(doc.path):
         raise Exception(f'Document {title} already exists at {doc.path}')
@@ -26,11 +27,11 @@ def create_document(title, path):
     return doc
 
 
-def create_draft(title):
+def create_draft(title: str) -> Document:
     return create_document(title, 'drafts')
 
 
-def move(source, dest):
+def move(source: str, dest: str) -> str:
     utils.ensure_path(dest)
     dest_file = os.path.join(dest, os.path.split(source)[-1])
     if os.path.exists(dest_file):
@@ -39,7 +40,7 @@ def move(source, dest):
     return dest_file
 
 
-def create_or_move_post(title, date):
+def create_or_move_post(title: str, date: datetime) -> None:
     path = utils.path_from_date(date)
 
     # If file exists as draft, promote it to a post
@@ -52,7 +53,7 @@ def create_or_move_post(title, date):
         print(f'New post created as {new_post.path}')
 
 
-def create_or_move_draft(title):
+def create_or_move_draft(title: str) -> None:
     # If file exists as post, move it to a draft
     if os.path.exists(title):
         new_draft = move(title, 'drafts')

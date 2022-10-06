@@ -1,21 +1,22 @@
 from datetime import datetime
 import html
 from types import SimpleNamespace as sn
+from typing import Dict
 from baku import utils
 
 
 class VerySimpleTemplate:
-    def __init__(self, file):
+    def __init__(self, file: str):
         with utils.open_utf8(file, 'r') as f:
             text = f.read()
         self.template, _ = self.__parse(text)
 
 
-    def render(self, context):
+    def render(self, context: Dict[str, str]) -> str:
         return self.__walk(self.template, context)
 
 
-    def __parse(self, text, pos=0, stop=None):
+    def __parse(self, text: str, pos: int = 0, stop: str = None) -> sn:
         nodes, p = [], pos
         while True:
             # Parse raw text
@@ -37,7 +38,7 @@ class VerySimpleTemplate:
         return sn(type='list', children=nodes), p
 
 
-    def __parse_text(self, text, pos):
+    def __parse_text(self, text: str, pos: int) -> sn:
         # Text ends when '{{' is encountered (or end of string)
         p = text.find('{{', pos)
         value = text[pos:p] if p != -1 else text[pos:]
@@ -46,7 +47,7 @@ class VerySimpleTemplate:
         return sn(type='text', value=value), p
 
 
-    def __parse_expr(self, text, pos):
+    def __parse_expr(self, text: str, pos: int) -> sn:
         # Expression ends when '}}' is encountered
         p = text.find('}}', pos) + 2
         expr = text[pos + 2:p - 2].strip()
@@ -68,13 +69,13 @@ class VerySimpleTemplate:
         return sn(type='expr', expr=expr), p
 
 
-    def __get(self, expr, context):
+    def __get(self, expr: str, context: Dict[str, str]) -> str:
         # If context is a dictionary, treat expr as key, else as an attribute
         return context[expr] if isinstance(context, dict) \
             else getattr(context, expr)
 
 
-    def __eval(self, expr, context):
+    def __eval(self, expr: str, context: Dict[str, str]) -> str:
         # If just an identifier, return value from context
         if '.' not in expr:
             # ~ applies date formatting
@@ -95,7 +96,7 @@ class VerySimpleTemplate:
         return self.__eval(tail, self.__get(head, context))
 
 
-    def __walk(self, node, context):
+    def __walk(self, node: sn, context: Dict[str, str]) -> str:
         match node.type:
             case 'text':
                 return node.value
