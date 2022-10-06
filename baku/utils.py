@@ -2,6 +2,7 @@ from datetime import datetime
 from io import TextIOWrapper
 import os
 import re
+from typing import Tuple
 from baku import consts
 
 
@@ -24,7 +25,7 @@ def parse_date(str_date: str) -> datetime:
     return datetime.strptime(str_date, '%Y/%m/%d')
 
 
-def split_date(date: datetime) -> str:
+def split_date(date: datetime) -> Tuple[str, str, str]:
     return f'{date.year:04}', f'{date.month:02}', f'{date.day:02}'
 
 

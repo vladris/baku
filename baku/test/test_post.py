@@ -30,14 +30,9 @@ class TestPost(unittest.TestCase):
         p = post.Post(
             self.make_post('2022', '09', '01', 'test.md', '# Test post'))
 
-        self.assertEqual(p.year, '2022')
-        self.assertEqual(p.month, '09')
-        self.assertEqual(p.day, '01')
         self.assertEqual(p.date.year, 2022)
         self.assertEqual(p.date.month, 9)
         self.assertEqual(p.date.day, 1)
-        self.assertEqual(p.dest,
-            os.path.join('.', 'html', '2022', '09', '01', 'test.html'))
         self.assertEqual(p.text, '# Test post')
         self.assertEqual(p.rel_path, './2022/09/01/test.html')
         self.assertEqual(p.href, '../../../2022/09/01/test.html')
@@ -45,6 +40,18 @@ class TestPost(unittest.TestCase):
 
         self.assertIsNone(p.prev)
         self.assertIsNone(p.next)
+
+
+    def test_get_dest(self):
+        p = post.Post(
+            self.make_post('2022', '09', '01', 'test.md', '# Test post'))
+
+        dest_dir, dest = p.get_dest()
+
+        self.assertEqual(dest_dir,
+            os.path.join('.', 'html', '2022', '09', '01'))
+        self.assertEqual(dest,
+            os.path.join('.', 'html', '2022', '09', '01', 'test.html'))
 
 
     def test_link_prev_next(self):

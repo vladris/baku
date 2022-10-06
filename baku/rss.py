@@ -20,7 +20,8 @@ def build_feed(posts: List[post.Post], config: Dict[str, str]) -> None:
 
 def patch_links(base_url: str, p: post.Post) -> str:
     doc = pyquery.PyQuery(p.body)
-    abs_path = f'{base_url}/{p.year}/{p.month}/{p.day}/'
+    year, month, day = utils.split_date(p.date)
+    abs_path = f'{base_url}/{year}/{month}/{day}/'
 
     # Patch img nodes
     for img in doc.find('img'):
