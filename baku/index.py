@@ -20,4 +20,4 @@ def build_index(posts: List[post.Post], config: Dict[str, str]):
             year, posts_in_year = p.year, [p]
 
     with utils.open_utf8(os.path.join('.', 'html', 'index.html'), 'w+') as f:
-        f.write(template.render(context | config))
+        f.write(templating.render(template, context | config))

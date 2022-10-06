@@ -23,7 +23,7 @@ class TestTemplating(unittest.TestCase):
 
     def renderTemplate(self, context):
         template = templating.VerySimpleTemplate(self.test_template)
-        return template.render(context)
+        return templating.render(template, context)
 
 
     def test_simple_templating(self):

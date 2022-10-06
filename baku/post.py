@@ -1,8 +1,7 @@
 import html
 import os
 from typing import Callable, Dict
-from baku import utils
-from baku.templating import VerySimpleTemplate
+from baku import templating, utils
 
 
 class Post:
@@ -47,7 +46,7 @@ class Post:
         self.body = md(self.text)
 
 
-def render_post(post: Post, template: VerySimpleTemplate,
+def render_post(post: Post, template: templating.VerySimpleTemplate,
     md: Callable[[str], str], config: Dict[str, str]) -> None:
     post.process_markdown(md)
 
@@ -55,4 +54,4 @@ def render_post(post: Post, template: VerySimpleTemplate,
 
     with utils.open_utf8(post.dest, 'w+') as f:
         # Make all config properties available to the template
-        f.write(template.render({'post': post} | config))
+        f.write(templating.render(template, {'post': post} | config))

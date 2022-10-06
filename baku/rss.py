@@ -15,7 +15,7 @@ def build_feed(posts: List[post.Post], config: Dict[str, str]) -> None:
         p.body = patch_links(base_url, p)
 
     with utils.open_utf8(os.path.join('.', 'html', 'rss.xml'), 'w+') as f:
-        f.write(template.render({'posts': posts} | config))
+        f.write(templating.render(template, {'posts': posts} | config))
 
 
 def patch_links(base_url: str, p: post.Post) -> str:
