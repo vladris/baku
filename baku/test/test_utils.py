@@ -1,8 +1,8 @@
-from baku import utils
-from datetime import datetime
 import os
 import shutil
 import unittest
+from datetime import datetime
+from baku import utils
 
 
 class TestUtils(unittest.TestCase):

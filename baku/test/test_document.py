@@ -1,9 +1,9 @@
-from baku import document, utils
-from contextlib import redirect_stdout
-from datetime import datetime
 import os
 import shutil
 import unittest
+from contextlib import redirect_stdout
+from datetime import datetime
+from baku import document, utils
 
 
 class TestDocument(unittest.TestCase):

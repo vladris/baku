@@ -1,7 +1,7 @@
 import argparse
 from datetime import datetime
 import baku
-from baku import build, document, environment, utils
+from baku import build, document, environment, upgrade, utils
 
 
 def main(argv=None):
@@ -22,6 +22,9 @@ def main(argv=None):
     group.add_argument(
         '-v', '--version', action='store_true',
         help='display version information')
+    group.add_argument(
+        '-u', '--upgrade', action='store_true',
+        help='upgrade blog templates')
     parser.add_argument(
         '--date', nargs=1,
         help='optionally specify a date as "YYYY/mm/dd" for the post, '
@@ -61,6 +64,8 @@ def main(argv=None):
         document.create_or_move_post(command.post[0], post_date)
     elif command.draft:
         document.create_or_move_draft(command.draft[0])
+    elif command.upgrade:
+        upgrade.upgrade()
     elif command.version:
         print(f'Baku version {baku.__version__} ')
     else:

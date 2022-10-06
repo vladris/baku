@@ -1,8 +1,8 @@
-from baku import consts, environment, utils
-from contextlib import redirect_stdout
 import os
 import shutil
 import unittest
+from contextlib import redirect_stdout
+from baku import consts, environment, utils
 
 
 class TestEnvironment(unittest.TestCase):
@@ -20,7 +20,7 @@ class TestEnvironment(unittest.TestCase):
     def test_initialize(self):
         self.assertFalse(environment.is_blog())
         self.assertFalse(
-            os.path.exists(os.path.join('templates', consts.POST_TEMAPLTE)))
+            os.path.exists(os.path.join('templates', consts.POST_TEMPLATE)))
 
         # Silence print() from called function
         with redirect_stdout(None):
@@ -28,7 +28,7 @@ class TestEnvironment(unittest.TestCase):
 
         self.assertTrue(environment.is_blog())
         self.assertTrue(
-            os.path.exists(os.path.join('templates', consts.POST_TEMAPLTE)))
+            os.path.exists(os.path.join('templates', consts.POST_TEMPLATE)))
 
 
     def test_load_config(self):

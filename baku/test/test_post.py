@@ -1,7 +1,7 @@
-from baku import markdown, post, utils
 import os
 import shutil
 import unittest
+from baku import markdown, post, utils
 
 
 class TestPost(unittest.TestCase):

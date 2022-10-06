@@ -47,7 +47,7 @@ def get_dest(source: str) -> str:
 def render_posts(posts: List[post.Post], config: Dict[str, str]) -> None:
     print('Rendering posts...', end=' ')
     template = templating.VerySimpleTemplate(
-        os.path.join('templates', consts.POST_TEMAPLTE))
+        os.path.join('templates', consts.POST_TEMPLATE))
     md = markdown.make_markdown_processor()
 
     for i, p in enumerate(posts):

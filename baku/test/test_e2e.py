@@ -1,8 +1,8 @@
-from contextlib import redirect_stdout
-from baku import cmdline, utils
 import os
 import shutil
 import unittest
+from contextlib import redirect_stdout
+from baku import cmdline, utils
 
 
 class TestPost(unittest.TestCase):

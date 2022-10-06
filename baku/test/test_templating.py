@@ -1,8 +1,8 @@
-from datetime import datetime
-from baku import templating, utils
 import os
 import shutil
 import unittest
+from datetime import datetime
+from baku import templating, utils
 
 
 class TestTemplating(unittest.TestCase):
