@@ -1,4 +1,5 @@
 from baku import document, utils
+from contextlib import redirect_stdout
 from datetime import datetime
 import os
 import shutil
@@ -88,7 +89,9 @@ class TestDocument(unittest.TestCase):
         self.assertFalse(os.path.exists(
             os.path.join('2022', '09', '01', 'test-post.md')))
 
-        document.create_or_move_post('Test post', datetime(2022, 9, 1))
+        # Silence print() from called function
+        with redirect_stdout(None):
+            document.create_or_move_post('Test post', datetime(2022, 9, 1))
 
         self.assertTrue(os.path.exists(
             os.path.join('2022', '09', '01', 'test-post.md')))
@@ -102,8 +105,10 @@ class TestDocument(unittest.TestCase):
         self.assertTrue(os.path.exists(
             os.path.join('drafts', 'test-post.md')))
 
-        document.create_or_move_post(
-            os.path.join('drafts', 'test-post.md'), datetime(2022, 9, 1))
+        # Silence print() from called function
+        with redirect_stdout(None):
+            document.create_or_move_post(
+                os.path.join('drafts', 'test-post.md'), datetime(2022, 9, 1))
 
         self.assertTrue(os.path.exists(
             os.path.join('2022', '09', '01', 'test-post.md')))
@@ -115,22 +120,28 @@ class TestDocument(unittest.TestCase):
         self.assertFalse(os.path.exists(
             os.path.join('drafts', 'test-post.md')))
 
-        document.create_or_move_draft('Test post')
+        # Silence print() from called function
+        with redirect_stdout(None):
+            document.create_or_move_draft('Test post')
 
         self.assertTrue(os.path.exists(
             os.path.join('drafts', 'test-post.md')))
         
 
     def test_create_or_move_draft_move(self):
-        document.create_or_move_post('Test post', datetime(2022, 9, 1))
+        # Silence print() from called function
+        with redirect_stdout(None):
+            document.create_or_move_post('Test post', datetime(2022, 9, 1))
 
         self.assertTrue(os.path.exists(
             os.path.join('2022', '09', '01', 'test-post.md')))
         self.assertFalse(os.path.exists(
             os.path.join('drafts', 'test-post.md')))
 
-        document.create_or_move_draft(
-            os.path.join('2022', '09', '01', 'test-post.md'))
+        # Silence print() from called function
+        with redirect_stdout(None):
+            document.create_or_move_draft(
+                os.path.join('2022', '09', '01', 'test-post.md'))
 
         self.assertFalse(os.path.exists(
             os.path.join('2022', '09', '01', 'test-post.md')))

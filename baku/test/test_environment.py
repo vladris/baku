@@ -1,4 +1,5 @@
 from baku import consts, environment, utils
+from contextlib import redirect_stdout
 import os
 import shutil
 import unittest
@@ -21,7 +22,9 @@ class TestEnvironment(unittest.TestCase):
         self.assertFalse(
             os.path.exists(os.path.join('templates', consts.POST_TEMAPLTE)))
 
-        environment.initialize()
+        # Silence print() from called function
+        with redirect_stdout(None):
+            environment.initialize()
 
         self.assertTrue(environment.is_blog())
         self.assertTrue(
@@ -29,9 +32,10 @@ class TestEnvironment(unittest.TestCase):
 
 
     def test_load_config(self):
-        environment.initialize()
+        # Silence print() from called function
+        with redirect_stdout(None):
+            environment.initialize()
 
         config = environment.load_config()
 
         self.assertEqual(config['author'], 'John Doe')
-
