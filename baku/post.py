@@ -5,13 +5,15 @@ from baku import templating, utils
 
 
 class Post:
+    # pylint: disable=too-many-instance-attributes
+    # These are all needed for template rendering and addressing this would
+    # force us to do more awkward things.
     def __init__(self, doc: str):
         self.doc = doc
 
         # Timestamp
         _, year, month, day, _ = doc.split(os.path.sep)
-        self.date = utils.parse_date(
-            f'{year}/{month}/{day}').astimezone()
+        self.date = utils.parse_date(f'{year}/{month}/{day}').astimezone()
 
         # Load content
         with utils.open_utf8(doc, 'r') as f:
