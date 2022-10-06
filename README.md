@@ -55,6 +55,26 @@ baku --build
 This will generate the static blog website under the `html` folder. You can
 publish this, for example using [GitHub Pages](https://pages.github.com/)
 
+## Upgrading
+
+Thank you for trying out an early version of Baku!
+
+> **Warning**
+
+Please be careful when upgrading to a newer version of the package. Until
+Baku reaches major version 1, it is likely that the configuration and templates
+will change often with newer versions. Since these are copied to your blog
+directory when running `baku --init`, they will get out of sync with the
+newer code and might not work as expected.
+
+You can upgrade your blog by rerunning `baku --init` but note this will
+overwrite any template customizations you made locally and will override your
+`blog.cfg` to the out-of-the-box one.
+
+[Issue #3](https://github.com/vladris/baku/issues/3) is tracking improvements
+to the upgrade story. Until resolved, please backup your `blog.cfg` and any
+template customizations, run `baku --init`, then merge back your changes.
+
 ## Drafts
 
 You can create a draft using the `-d` or `--draft` argument:
@@ -63,8 +83,7 @@ You can create a draft using the `-d` or `--draft` argument:
 baku --draft "This is my draft"
 ```
 
-This will create `drafts/this-is-my-draft.md`. Drafts are ignored during build
-(more on build below).
+This will create `drafts/this-is-my-draft.md`. Drafts are ignored during build.
 
 You can promote a draft to a post by passing an existing draft to the `--post`
 command:
