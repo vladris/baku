@@ -27,7 +27,7 @@ setup(
         'Topic :: Internet'
     ],
     platforms = 'any',
-    packages=find_packages('baku', exclude=['test']),
+    packages=find_packages(exclude=['test']),
     include_package_data = True,
     package_data={'baku': ['templates/*']},
     entry_points = {
