@@ -22,7 +22,8 @@ cd blog
 baku --init
 ```
 
-Update the newly generated `blog.cfg` file to configure your blog.
+Update the newly generated `blog.cfg` file to configure your blog. For example,
+you can update the `style` key from `light.css` to `dark.css` for dark mode.
 
 ## Posting
 
@@ -57,23 +58,18 @@ publish this, for example using [GitHub Pages](https://pages.github.com/)
 
 ## Upgrading
 
-Thank you for trying out an early version of Baku!
+If you upgrade to a newer Baku version, navigate to your blog root and run:
 
-> **Warning**
+```
+baku --upgrade
+```
 
-Please be careful when upgrading to a newer version of the package. Until
-Baku reaches major version 1, it is likely that the configuration and templates
-will change often with newer versions. Since these are copied to your blog
-directory when running `baku --init`, they will get out of sync with the
-newer code and might not work as expected.
-
-You can upgrade your blog by rerunning `baku --init` but note this will
-overwrite any template customizations you made locally and will override your
-`blog.cfg` to the out-of-the-box one.
-
-[Issue #3](https://github.com/vladris/baku/issues/3) is tracking improvements
-to the upgrade story. Until resolved, please backup your `blog.cfg` and any
-template customizations, run `baku --init`, then merge back your changes.
+This will update your `blog.cfg` with additional settings if any, and prompt
+you in case templates or static files changed. These are files under your
+blog's `templates/` and `static/` folders. If you didn't edit these yourself,
+you can safely overwrite with the newer version. If you did make some changes
+to tweak the appearance of your blog, choose the *backup* option - the upgrade
+will preserve backups then you can merge back your customizations.
 
 ## Drafts
 
