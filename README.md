@@ -131,7 +131,7 @@ dependencies. Variables between `{{` and `}}` are evaluated as follows:
   (e.g. `{{ a.b.c }}`). A `&` after an expression HTML-escapes the value
   (e.g. `{{ a.b.c & }}` will HTML-escape `a.b.c`). A `%` followed by a format
   string will apply date formatting to the value using `strftime()` (e.g.
-  `{{ a.b.c & %B %d %Y }}`).
+  `{{ a.b.c % %B %d %Y }}`).
 
 The context used during post rendering includes all values in `blog.cfg`. When
 rendering posts, the context includes a `post` variable with various post data.
