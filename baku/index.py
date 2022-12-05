@@ -7,6 +7,10 @@ def build_index(posts: List[post.Post], config: Dict[str, str]):
     template = templating.VerySimpleTemplate(
         os.path.join('templates', consts.ROOT_TEMPLATE))
 
+    if len(posts) == 0:
+        print("You have no posts. Create one with `baku --post <post name>`.")
+        return
+
     # Group posts by year
     year, context, posts_in_year = posts[0].date.year, {'years': []}, []
     for p in posts:
