@@ -19,7 +19,7 @@ class Document():
 def create_document(title: str, path: str) -> Document:
     doc = Document(title, path)
     if os.path.exists(doc.path):
-        raise Exception(f'Document {title} already exists at {doc.path}')
+        raise FileExistsError(f'Document {title} already exists at {doc.path}')
 
     with utils.open_utf8(doc.path, "w+") as f:
         f.write(f'# {doc.title}\n\n')
@@ -35,7 +35,7 @@ def move(source: str, dest: str) -> str:
     utils.ensure_path(dest)
     dest_file = os.path.join(dest, os.path.split(source)[-1])
     if os.path.exists(dest_file):
-        raise Exception(f'Document {dest_file} already exists')
+        raise FileExistsError(f'Document {dest_file} already exists')
     shutil.move(source, dest)
     return dest_file
 
