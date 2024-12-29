@@ -11,6 +11,9 @@ class HighlighterRenderer(m.HtmlRenderer):
     # pylint: disable=too-few-public-methods
     # This is what Misaka wants to enable Pygments
     def blockcode(self, text, lang):
+        if lang == 'mermaid':
+            return f'<div class="mermaid">{text.strip()}</div>'
+
         try:
             lexer = get_lexer_by_name(lang, stripall=True)
         except ClassNotFound:

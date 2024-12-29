@@ -97,6 +97,11 @@ baku --draft 2022/09/01/this-is-my-first-post.md
 
 This will move the post from `2022/09/01` to the `drafts` folder.
 
+## Features
+
+Baku supports extended Markdown, including mathematical notation via MathJax
+(use `$`s to mark an inline block and `$$`s for a separate block) and Mermaid diagrams (use `mermaid` as the language for a code block).
+
 ## Directory layout
 
 When you initialize a new blog, Baku will create a couple of directories:
