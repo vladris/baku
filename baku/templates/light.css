@@ -9,6 +9,11 @@
   overflow-x: scroll;
 }
 
+.mermaid {
+  overflow: scroll;
+  text-align: center;
+}
+
 header {
   color: #93a4ad;
   text-align: right;
