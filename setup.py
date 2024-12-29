@@ -16,7 +16,7 @@ setup(
     description = 'Simple, Markdown-based blogging engine',
     long_description = long_desc,
     classifiers = [
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
         'Environment :: Web Environment',
         'Intended Audience :: End Users/Desktop',
